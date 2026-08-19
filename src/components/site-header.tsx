@@ -67,8 +67,8 @@ export function SiteHeader() {
           className="ml-auto inline-flex size-11 items-center justify-center rounded-2xl border border-border bg-card text-primary sm:ml-0 lg:hidden"
         >
           <span className="sr-only">{open ? "Cerrar menú" : "Abrir menú"}</span>
-          {open ? <Menu className="size-5" /> : <X className="hidden" />}
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
+
         </button>
       </div>
 
