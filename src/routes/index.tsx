@@ -180,13 +180,11 @@ function Index() {
             </p>
 
             <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {necesidades.map((item) => (
-                <li key={item.id}>
-                  <Link
-                    to={item.id === "informate" ? "/informate" : "."}
-                    hash={item.id === "informate" ? undefined : item.id}
-                    className="group flex h-full flex-col gap-3 rounded-4xl border border-border/70 bg-card p-6 shadow-soft transition-transform hover:-translate-y-1"
-                  >
+              {necesidades.map((item) => {
+                const cardClass =
+                  "group flex h-full flex-col gap-3 rounded-4xl border border-border/70 bg-card p-6 shadow-soft transition-transform hover:-translate-y-1";
+                const inner = (
+                  <>
                     <span
                       className={`inline-flex size-12 items-center justify-center rounded-2xl ${toneClasses[item.tone]}`}
                     >
@@ -198,10 +196,24 @@ function Index() {
                     <p className="text-base leading-relaxed text-muted-foreground">
                       {item.text}
                     </p>
-                  </Link>
-                </li>
-              ))}
+                  </>
+                );
+                return (
+                  <li key={item.id}>
+                    {item.id === "informate" ? (
+                      <Link to="/informate" className={cardClass}>
+                        {inner}
+                      </Link>
+                    ) : (
+                      <a href={`#${item.id}`} className={cardClass}>
+                        {inner}
+                      </a>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
+
           </div>
         </section>
 
