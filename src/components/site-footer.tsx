@@ -48,9 +48,10 @@ export function SiteFooter() {
                 {col.title}
               </h3>
               <ul className="mt-3 space-y-2 text-sm opacity-75">
-                {col.items.map((item) => (
-                  <li key={item}>{item}</li>
+                {col.items.map((item, i) => (
+                  <li key={`${col.title}-${i}`}>{item}</li>
                 ))}
+
               </ul>
             </div>
           ))}
