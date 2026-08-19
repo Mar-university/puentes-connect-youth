@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as InformateIndexRouteImport } from './routes/informate.index'
+import { Route as InformateTemaRouteImport } from './routes/informate.$tema'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +23,39 @@ const InformateIndexRoute = InformateIndexRouteImport.update({
   path: '/informate/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InformateTemaRoute = InformateTemaRouteImport.update({
+  id: '/informate/$tema',
+  path: '/informate/$tema',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/informate/$tema': typeof InformateTemaRoute
   '/informate/': typeof InformateIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/informate/$tema': typeof InformateTemaRoute
   '/informate': typeof InformateIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/informate/$tema': typeof InformateTemaRoute
   '/informate/': typeof InformateIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/informate/'
+  fullPaths: '/' | '/informate/$tema' | '/informate/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/informate'
-  id: '__root__' | '/' | '/informate/'
+  to: '/' | '/informate/$tema' | '/informate'
+  id: '__root__' | '/' | '/informate/$tema' | '/informate/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  InformateTemaRoute: typeof InformateTemaRoute
   InformateIndexRoute: typeof InformateIndexRoute
 }
 
@@ -65,11 +75,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InformateIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/informate/$tema': {
+      id: '/informate/$tema'
+      path: '/informate/$tema'
+      fullPath: '/informate/$tema'
+      preLoaderRoute: typeof InformateTemaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  InformateTemaRoute: InformateTemaRoute,
   InformateIndexRoute: InformateIndexRoute,
 }
 export const routeTree = rootRouteImport

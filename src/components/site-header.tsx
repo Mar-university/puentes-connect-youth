@@ -1,14 +1,15 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Menu, X, LifeBuoy } from "lucide-react";
 import kamuMini from "@/assets/kamu-mini.png";
 
 const navItems = [
-  { label: "Infórmate", href: "#informate" },
-  { label: "Mis derechos", href: "#derechos" },
-  { label: "Orientación", href: "#orientacion" },
-  { label: "Proyecto de vida", href: "#proyecto-de-vida" },
-  { label: "Agentes PUENTES", href: "#agentes" },
-  { label: "Sobre la red", href: "#sobre-puentes" },
+  { label: "Infórmate", href: "/informate" },
+  { label: "Mis derechos", href: "/#derechos" },
+  { label: "Orientación", href: "/#orientacion" },
+  { label: "Proyecto de vida", href: "/#proyecto-de-vida" },
+  { label: "Agentes PUENTES", href: "/#agentes" },
+  { label: "Sobre la red", href: "/#sobre-puentes" },
 ];
 
 export function SiteHeader() {
@@ -17,7 +18,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-cream/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3 sm:px-6">
-        <a href="#inicio" className="flex items-center gap-3 rounded-2xl px-1 py-1">
+        <a href="/#inicio" className="flex items-center gap-3 rounded-2xl px-1 py-1">
           <img
             src={kamuMini}
             alt=""
@@ -52,7 +53,7 @@ export function SiteHeader() {
         </nav>
 
         <a
-          href="#orientacion"
+          href="/#orientacion"
           className="ml-auto hidden items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-soft transition-transform hover:-translate-y-0.5 sm:inline-flex lg:ml-0"
         >
           <LifeBuoy className="size-4" aria-hidden="true" />
@@ -92,7 +93,7 @@ export function SiteHeader() {
             ))}
             <li className="sm:hidden">
               <a
-                href="#orientacion"
+                href="/#orientacion"
                 onClick={() => setOpen(false)}
                 className="mt-1 flex items-center justify-center gap-2 rounded-2xl bg-accent px-4 py-3 text-base font-semibold text-accent-foreground"
               >

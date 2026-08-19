@@ -110,7 +110,7 @@ function Informate() {
         </section>
 
         {/* CATEGORÍAS */}
-        <section className="bg-card/60 py-14 md:py-20">
+        <section id="temas" className="bg-card/60 py-14 md:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <h2 className="text-3xl font-extrabold sm:text-4xl">
               Elige un tema

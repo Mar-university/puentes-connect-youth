@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   BookOpen,
   Scale,
@@ -182,8 +182,9 @@ function Index() {
             <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {necesidades.map((item) => (
                 <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
+                  <Link
+                    to={item.id === "informate" ? "/informate" : "."}
+                    hash={item.id === "informate" ? undefined : item.id}
                     className="group flex h-full flex-col gap-3 rounded-4xl border border-border/70 bg-card p-6 shadow-soft transition-transform hover:-translate-y-1"
                   >
                     <span
@@ -197,7 +198,7 @@ function Index() {
                     <p className="text-base leading-relaxed text-muted-foreground">
                       {item.text}
                     </p>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
