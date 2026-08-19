@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
 import { Menu, X, LifeBuoy } from "lucide-react";
 import kamuMini from "@/assets/kamu-mini.png";
 
