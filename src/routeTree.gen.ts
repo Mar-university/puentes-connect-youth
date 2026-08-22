@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as InformateIndexRouteImport } from './routes/informate.index'
 import { Route as InformateTemaRouteImport } from './routes/informate.$tema'
+import { Route as InformateTemaEtapaRouteImport } from './routes/informate.$tema.$etapa'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,34 +29,48 @@ const InformateTemaRoute = InformateTemaRouteImport.update({
   path: '/informate/$tema',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InformateTemaEtapaRoute = InformateTemaEtapaRouteImport.update({
+  id: '/$etapa',
+  path: '/$etapa',
+  getParentRoute: () => InformateTemaRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/informate/$tema': typeof InformateTemaRoute
+  '/informate/$tema': typeof InformateTemaRouteWithChildren
   '/informate/': typeof InformateIndexRoute
+  '/informate/$tema/$etapa': typeof InformateTemaEtapaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/informate/$tema': typeof InformateTemaRoute
+  '/informate/$tema': typeof InformateTemaRouteWithChildren
   '/informate': typeof InformateIndexRoute
+  '/informate/$tema/$etapa': typeof InformateTemaEtapaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/informate/$tema': typeof InformateTemaRoute
+  '/informate/$tema': typeof InformateTemaRouteWithChildren
   '/informate/': typeof InformateIndexRoute
+  '/informate/$tema/$etapa': typeof InformateTemaEtapaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/informate/$tema' | '/informate/'
+  fullPaths:
+    '/' | '/informate/$tema' | '/informate/' | '/informate/$tema/$etapa'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/informate/$tema' | '/informate'
-  id: '__root__' | '/' | '/informate/$tema' | '/informate/'
+  to: '/' | '/informate/$tema' | '/informate' | '/informate/$tema/$etapa'
+  id:
+    | '__root__'
+    | '/'
+    | '/informate/$tema'
+    | '/informate/'
+    | '/informate/$tema/$etapa'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  InformateTemaRoute: typeof InformateTemaRoute
+  InformateTemaRoute: typeof InformateTemaRouteWithChildren
   InformateIndexRoute: typeof InformateIndexRoute
 }
 
@@ -82,12 +97,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InformateTemaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/informate/$tema/$etapa': {
+      id: '/informate/$tema/$etapa'
+      path: '/$etapa'
+      fullPath: '/informate/$tema/$etapa'
+      preLoaderRoute: typeof InformateTemaEtapaRouteImport
+      parentRoute: typeof InformateTemaRoute
+    }
   }
 }
 
+interface InformateTemaRouteChildren {
+  InformateTemaEtapaRoute: typeof InformateTemaEtapaRoute
+}
+
+const InformateTemaRouteChildren: InformateTemaRouteChildren = {
+  InformateTemaEtapaRoute: InformateTemaEtapaRoute,
+}
+
+const InformateTemaRouteWithChildren = InformateTemaRoute._addFileChildren(
+  InformateTemaRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  InformateTemaRoute: InformateTemaRoute,
+  InformateTemaRoute: InformateTemaRouteWithChildren,
   InformateIndexRoute: InformateIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -1,9 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, LifeBuoy } from "lucide-react";
+import { ArrowLeft, ArrowRight, LifeBuoy } from "lucide-react";
 
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { temas, rutaPuentes } from "@/lib/informate-temas";
+import { etapaIconos, etapaTonos } from "@/lib/etapa-ui";
 import kamuMini from "@/assets/kamu-mini.png";
 
 export const Route = createFileRoute("/informate/$tema")({
@@ -90,12 +91,8 @@ function TemaPage() {
                 Tema sensible · puedes leerlo a tu ritmo
               </p>
             )}
-          </div>
-        </section>
 
-        <section className="bg-card/60 py-14 md:py-20">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6">
-            <div className="flex items-start gap-4">
+            <div className="mt-10 flex items-start gap-4">
               <img
                 src={kamuMini}
                 alt=""
@@ -106,35 +103,75 @@ function TemaPage() {
                 className="size-12 shrink-0 rounded-full bg-secondary-soft p-1"
               />
               <p className="rounded-4xl bg-card px-5 py-4 text-base font-semibold text-primary shadow-soft">
-                “Estamos preparando este tema con información verificada. Este
-                es el camino que recorreremos juntos.”
+                “No tienes que recorrerlo todo. Elige qué necesitas conocer hoy
+                y empieza por ahí.”
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-card/60 py-14 md:py-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="max-w-2xl">
+              <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-accent">
+                Ruta PUENTES
+              </p>
+              <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl">
+                ¿Por dónde quieres empezar?
+              </h2>
+              <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                Cada etapa es una puerta: entra directamente a la que necesites,
+                sin orden obligatorio.
               </p>
             </div>
 
-            <ol className="mt-10 space-y-4">
-              {rutaPuentes.map((r, i) => (
-                <li
-                  key={r.paso}
-                  className="rounded-4xl border border-border/70 bg-card p-6 shadow-soft"
-                >
-                  <div className="flex flex-wrap items-baseline gap-3">
-                    <span className="font-display text-sm font-bold text-accent">
-                      0{i + 1}
-                    </span>
-                    <h2 className="font-display text-xl font-bold text-primary">
-                      {r.paso}
-                    </h2>
-                    <p className="text-sm font-semibold">{r.pregunta}</p>
-                  </div>
-                  <p className="mt-2 text-base leading-relaxed text-muted-foreground">
-                    {r.detalle}
-                  </p>
-                  <p className="mt-3 rounded-2xl bg-cream-deep px-4 py-3 text-sm text-muted-foreground">
-                    [Contenido pendiente de elaboración y validación por el
-                    equipo PUENTES]
-                  </p>
-                </li>
-              ))}
+            <ol className="relative mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+              <div
+                aria-hidden="true"
+                className="absolute left-0 right-0 top-16 hidden border-t-2 border-dashed border-primary/20 lg:block"
+              />
+              {rutaPuentes.map((etapa, i) => {
+                const Icono = etapaIconos[etapa.icono];
+                const tono = etapaTonos[etapa.tone];
+                return (
+                  <li key={etapa.slug} className="relative">
+                    <Link
+                      to="/informate/$tema/$etapa"
+                      params={{ tema: tema.slug, etapa: etapa.slug }}
+                      className="group flex h-full flex-col rounded-4xl border border-border/70 bg-card p-5 shadow-soft transition-all hover:-translate-y-1 hover:shadow-lift"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span
+                          className={`flex size-11 items-center justify-center rounded-2xl ${tono.icono}`}
+                        >
+                          <Icono className="size-5" aria-hidden="true" />
+                        </span>
+                        <span
+                          className={`font-display text-2xl font-extrabold ${tono.numero}`}
+                        >
+                          0{i + 1}
+                        </span>
+                      </div>
+                      <h3 className="mt-4 font-display text-xl font-extrabold uppercase tracking-wide text-foreground">
+                        {etapa.paso}
+                      </h3>
+                      <p className="mt-1 text-sm font-bold text-primary">
+                        {etapa.pregunta}
+                      </p>
+                      <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                        {etapa.descripcion}
+                      </p>
+                      <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-primary">
+                        Entrar
+                        <ArrowRight
+                          className="size-4 transition-transform group-hover:translate-x-1"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
             </ol>
           </div>
         </section>
