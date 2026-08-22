@@ -7,7 +7,7 @@ import {
 
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { temas, rutaPuentes, etapaPorSlug } from "@/lib/informate-temas";
+import { temas, rutaPuentes } from "@/lib/informate-temas";
 import { etapaIconos, etapaTonos } from "@/routes/informate.$tema";
 import kamuMini from "@/assets/kamu-mini.png";
 
