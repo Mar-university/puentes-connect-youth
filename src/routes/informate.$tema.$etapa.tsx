@@ -15,14 +15,17 @@ export const Route = createFileRoute("/informate/$tema/$etapa")({
   loader: ({ params }) => {
     const tema = temas.find((t) => t.slug === params.tema);
     const indice = rutaPuentes.findIndex((e) => e.slug === params.etapa);
-    if (!tema || indice === -1) throw notFound();
+    const etapa = indice === -1 ? undefined : rutaPuentes[indice];
+    if (!tema || !etapa) throw notFound();
     return {
       tema,
-      etapa: rutaPuentes[indice],
+      etapa,
       indice,
-      anterior: indice > 0 ? rutaPuentes[indice - 1] : null,
+      anterior: indice > 0 ? (rutaPuentes[indice - 1] ?? null) : null,
       siguiente:
-        indice < rutaPuentes.length - 1 ? rutaPuentes[indice + 1] : null,
+        indice < rutaPuentes.length - 1
+          ? (rutaPuentes[indice + 1] ?? null)
+          : null,
     };
   },
   head: ({ loaderData }) => {
