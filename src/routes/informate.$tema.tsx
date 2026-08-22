@@ -1,48 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import {
-  ArrowLeft,
-  ArrowRight,
-  BookOpen,
-  Compass,
-  Eye,
-  Footprints,
-  HeartHandshake,
-  LifeBuoy,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, LifeBuoy } from "lucide-react";
 
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { temas, rutaPuentes, type Etapa } from "@/lib/informate-temas";
+import { temas, rutaPuentes } from "@/lib/informate-temas";
+import { etapaIconos, etapaTonos } from "@/lib/etapa-ui";
 import kamuMini from "@/assets/kamu-mini.png";
-
-export const etapaIconos: Record<Etapa["icono"], typeof BookOpen> = {
-  "book-open": BookOpen,
-  eye: Eye,
-  compass: Compass,
-  footprints: Footprints,
-  "heart-handshake": HeartHandshake,
-};
-
-export const etapaTonos: Record<
-  Etapa["tone"],
-  { chip: string; icono: string; numero: string }
-> = {
-  primary: {
-    chip: "bg-primary-soft text-primary",
-    icono: "bg-primary text-primary-foreground",
-    numero: "text-primary",
-  },
-  secondary: {
-    chip: "bg-secondary-soft text-secondary-foreground",
-    icono: "bg-secondary text-secondary-foreground",
-    numero: "text-secondary",
-  },
-  accent: {
-    chip: "bg-accent-soft text-accent-foreground",
-    icono: "bg-accent text-accent-foreground",
-    numero: "text-accent",
-  },
-};
 
 export const Route = createFileRoute("/informate/$tema")({
   loader: ({ params }) => {
